@@ -30,12 +30,12 @@ public class LoginControl extends HttpServlet {
             String userRegistered = p.RegistoreNow(name, password, father, birth, gender);
             if(userRegistered.equals("SUCCESS"))   //On success, you can display a message to user on Home page
          {
-            request.getRequestDispatcher("/Home.jsp").forward(request, response);
+            request.getRequestDispatcher("/SuccessPage.jsp").forward(request, response);
          }
          else   //On Failure, display a meaningful message to the User.
          {
             request.setAttribute("errMessage", userRegistered);
-            request.getRequestDispatcher("/Register.jsp").forward(request, response);
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
          }
          
          
