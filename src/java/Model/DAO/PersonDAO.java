@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.security.NoSuchAlgorithmException;
-
+import Model.Entity.Person;
 
 public class PersonDAO {
     
@@ -51,22 +51,21 @@ public class PersonDAO {
         return validation;
     }
            
-                  public static boolean RegistoreNow(String NameUser,String PassUser,String FatherUser,String BirthUser,String GenderUser) throws SQLException {
-            boolean validation= false;
+                  public String RegistoreNow(String name,String password, String father,String birth,String gender) throws SQLException {
+               boolean validation= false;
             try{ ConnectionProvider connectioner2 =new ConnectionProvider();
-            PreparedStatement   preparedStatement = connectioner2.getConnection().prepareStatement("insert into table Employee where name=? and pass=? and father=? and birth=? and gender=?");
+            PreparedStatement   preparedStatement = connectioner2.getConnection().prepareStatement("insert into Employee where name=? and pass=? and father=? and birth=? and gender=?");
             preparedStatement.setString(1, "name");
             preparedStatement.setString(2, "password");
             preparedStatement.setString(3, "father");
             preparedStatement.setString(4, "birth");
             preparedStatement.setString(5, "gender");
 
-            ResultSet resultSet3= preparedStatement.executeQuery();
-            validation=resultSet3.next();
+            int resultSet3= preparedStatement.executeUpdate();
+              if (resultSet3 !=0) return "SUCCESS";
            }catch(SQLException e){
-               System.out.println("the user you entered is not registered");} 
-           
-        return validation;
+               e.printStackTrace();} 
+        return "Oops.. Something went wrong there..!";
     }
 
     private static boolean SQLException(SQLException e) {
